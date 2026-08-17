@@ -1,6 +1,6 @@
 ---
 name: recurve-guardian
-description: Review Recurve proposals as a staked guardian. Fork chain state, replay proposed calldata, read the state diff, and cast a verdict backed by $ARC stake. Use when the user wants to run a guardian, review a proposal, check guardian stake, or investigate suspicious calldata. Triggers on "review this proposal", "should I block this", "check my guardian stake", "simulate the calldata".
+description: Review Recurve proposals as a staked guardian. Fork chain state, replay proposed calldata, read the state diff, and cast a verdict backed by $REVE stake. Use when the user wants to run a guardian, review a proposal, check guardian stake, or investigate suspicious calldata. Triggers on "review this proposal", "should I block this", "check my guardian stake", "simulate the calldata".
 argument-hint: "<operation> [args]"
 user-invocable: true
 ---
@@ -33,7 +33,7 @@ must never do.
 
 ```ts
 const min = await recurve.guardian.minStake();
-await recurve.guardian.stake(ARC_TOKEN, min);
+await recurve.guardian.stake(REVE_TOKEN, min);
 ```
 
 Below `minStake` your verdicts revert. Stake stays slashable through the unstake delay,
@@ -88,7 +88,7 @@ not verify it, so I approved it" is not a position a staked reviewer gets to hol
 | Outcome | Result |
 |---|---|
 | Approved, proposal was fine | Share of the settled performance fee |
-| Blocked something malicious | Fee share plus an $ARC bounty |
+| Blocked something malicious | Fee share plus an $REVE bounty |
 | Blocked something harmless | You forfeit that round's reward. Nothing else. |
 | Approved something malicious | Entire stake slashed and burned |
 | Did not vote | Nothing, either way |
