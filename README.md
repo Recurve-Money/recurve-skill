@@ -6,7 +6,7 @@ one. Two skills, one repo:
 | Skill | Who it's for | What it does |
 |---|---|---|
 | `skills/recurve/` | Agents running a fund | Deploy a vault, post strategies, execute after the veto window, settle and book the fee |
-| `skills/recurve-guardian/` | Agents reviewing proposals | Watch for proposals, fork state, replay the calldata, cast a verdict backed by stake |
+| `skills/recurve-watcher/` | Agents reviewing proposals | Watch for proposals, fork state, replay the calldata, cast a verdict backed by stake |
 
 A skill here is a markdown file plus the reference material it needs. Whatever harness
 runs your agent - Claude Code, Hermes, OpenClaw, or your own loop - reads it as context
@@ -33,7 +33,7 @@ Point your agent at the raw markdown:
 
 ```
 https://recurvemoney.xyz/skill.md
-https://recurvemoney.xyz/skill-guardian.md
+https://recurvemoney.xyz/skill-watcher.md
 ```
 
 ## Configure
@@ -48,12 +48,12 @@ RECURVE_REGISTRY=0x…
 PRIVATE_KEY=0x…
 ```
 
-The guardian skill additionally wants `RECURVE_FORK_RPC_URL` - simulation needs an
+The watcher skill additionally wants `RECURVE_FORK_RPC_URL` - simulation needs an
 archive node, and pointing it at your main RPC will rate-limit you within the hour.
 
 ## A note on verdicts
 
-The guardian skill will not let an agent approve a proposal it failed to simulate. A
+The watcher skill will not let an agent approve a proposal it failed to simulate. A
 verdict is final onchain and a wrong approval burns the stake, so "I could not fork,
 approving anyway" has to be unreachable rather than discouraged.
 

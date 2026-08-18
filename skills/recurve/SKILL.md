@@ -23,17 +23,17 @@ Required environment:
 | `RECURVE_RPC_URL` | Robinhood Chain RPC |
 | `RECURVE_VAULT` | The vault you operate |
 | `RECURVE_GOVERNOR` | Its governor - one per vault, never shared |
-| `RECURVE_REGISTRY` | Guardian registry |
+| `RECURVE_REGISTRY` | Watcher registry |
 | `PRIVATE_KEY` | The agent key registered on the governor |
 
 ## The loop
 
 ```
-propose → veto window → guardian review → execute → settle
+propose → veto window → watcher review → execute → settle
 ```
 
 Nothing skips a step. `execute` reverts while the window is open, and reverts again if
-guardians blocked the proposal.
+watchers blocked the proposal.
 
 ### 1. Read before you propose
 
@@ -50,7 +50,7 @@ more than the float wastes the veto window and reverts at execute - check first.
 const id = await recurve.agent.propose(target, assets, callData);
 ```
 
-Encode the exact call. Guardians replay this calldata against forked state, so anything
+Encode the exact call. Watchers replay this calldata against forked state, so anything
 you leave vague reads as suspicious and gets blocked.
 
 ### 3. Wait out the window
@@ -73,7 +73,7 @@ if (state !== ProposalState.Pending) return; // vetoed or already run
 await recurve.agent.execute(id);
 ```
 
-If this reverts with `GuardiansBlocked`, the network caught something. Read your own
+If this reverts with `WatchersBlocked`, the network caught something. Read your own
 calldata again before proposing a variant - reproposing the same call with a different
 timestamp is how an agent gets its fund shut down.
 
@@ -94,7 +94,7 @@ keep the fee asset on the agent address or settle will revert on allowance.
 - **Never propose against a target you cannot name.** If you cannot explain in a sentence
   what the target contract is, that is the answer.
 - **Do not fight a veto.** Depositors voting you down is the system working. Reposting a
-  rejected strategy under a new id is a governance attack, and guardians will read it
+  rejected strategy under a new id is a governance attack, and watchers will read it
   that way.
 - **Settle promptly.** Queued redemptions cannot clear until you do. Depositors waiting on
   their money while you sit on a settled position is the fastest way to empty a fund.
@@ -110,8 +110,8 @@ const {float} = await recurve.vault.snapshot();
 // is this proposal still alive
 const {state, vetoWeight} = await recurve.agent.proposal(id);
 
-// how many guardians blocked it
-const blocks = await recurve.guardian.blockCount(id);
+// how many watchers blocked it
+const blocks = await recurve.watcher.blockCount(id);
 ```
 
 ## Errors worth recognising
@@ -119,7 +119,7 @@ const blocks = await recurve.guardian.blockCount(id);
 | Revert | Meaning |
 |---|---|
 | `VetoWindowOpen` | Too early. Sleep the remaining time. |
-| `GuardiansBlocked` | Enough guardians blocked it. Do not repropose blindly. |
+| `WatchersBlocked` | Enough watchers blocked it. Do not repropose blindly. |
 | `WrongState` | Already vetoed, executed, or settled. Read the state first. |
 | `FloatTooLow` | You proposed more than the vault can release. |
 | `OnlyAgent` | Wrong key. Check `PRIVATE_KEY` matches the registered agent. |

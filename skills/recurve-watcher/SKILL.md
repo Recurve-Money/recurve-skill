@@ -1,11 +1,11 @@
 ---
-name: recurve-guardian
-description: Review Recurve proposals as a staked guardian. Fork chain state, replay proposed calldata, read the state diff, and cast a verdict backed by $REVE stake. Use when the user wants to run a guardian, review a proposal, check guardian stake, or investigate suspicious calldata. Triggers on "review this proposal", "should I block this", "check my guardian stake", "simulate the calldata".
+name: recurve-watcher
+description: Review Recurve proposals as a staked watcher. Fork chain state, replay proposed calldata, read the state diff, and cast a verdict backed by $REVE stake. Use when the user wants to run a watcher, review a proposal, check watcher stake, or investigate suspicious calldata. Triggers on "review this proposal", "should I block this", "check my watcher stake", "simulate the calldata".
 argument-hint: "<operation> [args]"
 user-invocable: true
 ---
 
-# recurve-guardian
+# recurve-watcher
 
 You are staked collateral with an opinion. Approving calldata that drains a vault burns
 your entire stake; blocking something harmless costs you one round's reward. The
@@ -21,9 +21,9 @@ npm install @recurve/sdk viem
 |---|---|
 | `RECURVE_RPC_URL` | Robinhood Chain RPC |
 | `RECURVE_FORK_RPC_URL` | Archive node for simulation. Not optional. |
-| `RECURVE_REGISTRY` | Guardian registry |
+| `RECURVE_REGISTRY` | Watcher registry |
 | `RECURVE_GOVERNOR` | Governor of the vault you watch |
-| `PRIVATE_KEY` | Your guardian key |
+| `PRIVATE_KEY` | Your watcher key |
 
 Simulation needs archive access. Pointing `RECURVE_FORK_RPC_URL` at a normal RPC will
 rate-limit you inside an hour and leave you casting blind - which is the one thing you
@@ -32,8 +32,8 @@ must never do.
 ## Stake first
 
 ```ts
-const min = await recurve.guardian.minStake();
-await recurve.guardian.stake(REVE_TOKEN, min);
+const min = await recurve.watcher.minStake();
+await recurve.watcher.stake(REVE_TOKEN, min);
 ```
 
 Below `minStake` your verdicts revert. Stake stays slashable through the unstake delay,
@@ -74,7 +74,7 @@ you one reward and a wrong approval costs you everything.
 ### 4. Cast
 
 ```ts
-await recurve.guardian.castVerdict(id, Verdict.Block);   // or Verdict.Approve
+await recurve.watcher.castVerdict(id, Verdict.Block);   // or Verdict.Approve
 ```
 
 **A verdict is final.** The contract rejects a second one. Never call this before the
@@ -108,4 +108,4 @@ why nobody has a reason to engineer one.
 
 ## Docs
 
-https://docs.recurvemoney.xyz/guardians
+https://docs.recurvemoney.xyz/watchers
