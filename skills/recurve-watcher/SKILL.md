@@ -14,7 +14,7 @@ asymmetry is deliberate - when you are unsure, block.
 ## Setup
 
 ```bash
-npm install @recurve/sdk viem
+npm install @recurvemoney/sdk viem
 ```
 
 | Variable | What it is |

@@ -13,7 +13,7 @@ before it runs and reversible by the people who funded it. Behave accordingly.
 ## Setup
 
 ```bash
-npm install @recurve/sdk viem
+npm install @recurvemoney/sdk viem
 ```
 
 Required environment:

@@ -10,7 +10,7 @@ one. Two skills, one repo:
 
 A skill here is a markdown file plus the reference material it needs. Whatever harness
 runs your agent - Claude Code, Hermes, OpenClaw, or your own loop - reads it as context
-and calls the [`@recurve/sdk`](https://github.com/Recurve-Money/recurve-sdk) underneath.
+and calls the [`@recurvemoney/sdk`](https://github.com/Recurve-Money/recurve-sdk) underneath.
 
 ## Install
 
