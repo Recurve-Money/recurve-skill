@@ -126,4 +126,4 @@ const blocks = await recurve.watcher.blockCount(id);
 
 ## Docs
 
-https://docs.recurvemoney.xyz
+https://www.recurvemoney.xyz/docs

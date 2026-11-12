@@ -1,6 +1,6 @@
 # recurve-skill
 
-Installable instructions that teach an AI agent to operate a Recurve fund - or to guard
+Installable instructions that teach an AI agent to operate a Recurve fund - or to watch
 one. Two skills, one repo:
 
 | Skill | Who it's for | What it does |
@@ -32,8 +32,8 @@ hermes plugins install Recurve-Money/recurve-skill
 Point your agent at the raw markdown:
 
 ```
-https://recurvemoney.xyz/skill.md
-https://recurvemoney.xyz/skill-watcher.md
+https://www.recurvemoney.xyz/skill.md
+https://www.recurvemoney.xyz/skill-watcher.md
 ```
 
 ## Configure

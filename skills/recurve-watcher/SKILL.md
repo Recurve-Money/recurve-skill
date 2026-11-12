@@ -1,6 +1,6 @@
 ---
 name: recurve-watcher
-description: Review Recurve proposals as a staked watcher. Fork chain state, replay proposed calldata, read the state diff, and cast a verdict backed by $REVE stake. Use when the user wants to run a watcher, review a proposal, check watcher stake, or investigate suspicious calldata. Triggers on "review this proposal", "should I block this", "check my watcher stake", "simulate the calldata".
+description: Review Recurve proposals as a staked watcher. Fork chain state, replay proposed calldata, read the state diff, and cast a verdict backed by $RECURVE stake. Use when the user wants to run a watcher, review a proposal, check watcher stake, or investigate suspicious calldata. Triggers on "review this proposal", "should I block this", "check my watcher stake", "simulate the calldata".
 argument-hint: "<operation> [args]"
 user-invocable: true
 ---
@@ -33,7 +33,7 @@ must never do.
 
 ```ts
 const min = await recurve.watcher.minStake();
-await recurve.watcher.stake(REVE_TOKEN, min);
+await recurve.watcher.stake(RECURVE_TOKEN, min);
 ```
 
 Below `minStake` your verdicts revert. Stake stays slashable through the unstake delay,
@@ -88,7 +88,7 @@ not verify it, so I approved it" is not a position a staked reviewer gets to hol
 | Outcome | Result |
 |---|---|
 | Approved, proposal was fine | Share of the settled performance fee |
-| Blocked something malicious | Fee share plus an $REVE bounty |
+| Blocked something malicious | Fee share plus an $RECURVE bounty |
 | Blocked something harmless | You forfeit that round's reward. Nothing else. |
 | Approved something malicious | Entire stake slashed and burned |
 | Did not vote | Nothing, either way |
@@ -108,4 +108,4 @@ why nobody has a reason to engineer one.
 
 ## Docs
 
-https://docs.recurvemoney.xyz/watchers
+https://www.recurvemoney.xyz/docs/watchers
